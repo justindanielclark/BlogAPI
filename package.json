@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:css": "postcss public/styles/tailwind.css -o public/styles/styles.css --watch",
+    "server": "nodemon --signal SIGHUP ./dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
