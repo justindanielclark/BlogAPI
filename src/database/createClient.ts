@@ -3,9 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export default async function createClient(
-  MongoURI: string
-): Promise<MongoClient> {
+export default async function createClient(MongoURI: string): Promise<MongoClient> {
   const client = new MongoClient(MongoURI);
   await client
     .connect()
@@ -23,6 +21,7 @@ export default async function createClient(
 
   process.on("SIGTERM", () => gracefulShutdown());
   process.on("SIGINT", () => gracefulShutdown());
+  process.on("SIGHUP", () => gracefulShutdown());
 
   return client;
 }
