@@ -31,9 +31,9 @@ router.get("/:postID", async (req: Request, res: Response, next: NextFunction) =
   }
 });
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
-  const databaseClient = req.app.get("db") as MongoClient;
-  console.log(req.body);
-  return res.sendStatus(500);
+  // const databaseClient = req.app.get("db") as MongoClient;
+  // return res.sendStatus(500);
+  return res.json({ requestBody: req.body });
 });
 
 //TODO

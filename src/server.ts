@@ -5,6 +5,7 @@ import logErrors from "./middleware/logErrors";
 import cookieParser from "cookie-parser";
 //Routes
 import posts from "./routes/posts";
+import categories from "./routes/categories";
 import _mongo from "./database/_mongo";
 import setHeadersAndStatusOK from "./middleware/setHeadersAndStatusOK";
 
@@ -25,6 +26,7 @@ async function main() {
   app.use(setHeadersAndStatusOK);
   //ROUTES
   app.use("/posts", posts);
+  app.use("/categories", categories);
 
   app.use((req: Request, res: Response, next: NextFunction) => {
     next(httpErrors(404));
