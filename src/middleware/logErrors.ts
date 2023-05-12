@@ -14,7 +14,7 @@ export default async function logErrors(err: Error, req: Request, res: Response,
 	\n=====STACK=======\n
 	${err.stack}
 	`;
-  appendFile("../errorLog.txt", errorLog, (e) => {
+  appendFile("./errorLog.txt", errorLog, (e) => {
     if (e) {
       console.error("Failure to log error");
     }

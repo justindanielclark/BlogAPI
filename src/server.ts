@@ -21,6 +21,7 @@ async function main() {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   app.use(cookieParser());
+  //! NOTE: Currently allows CORS, to address later
   app.use(setHeadersAndStatusOK);
   //ROUTES
   app.use("/posts", posts);
