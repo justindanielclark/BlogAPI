@@ -1,4 +1,4 @@
-import createPost from "./createPost";
+import createPost from "../Post/createPost";
 import retrieveAllPosts from "./retrieveAllPosts";
 import retrievePost from "./retrievePost";
 import deletePost from "./deletePost";

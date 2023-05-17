@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 import Post from "../../models/Post";
-import getPostCollection from "./getPostCollection";
+import getPostCollection from "../Posts/getPostCollection";
 
 export default async function createPost(client: MongoClient, post: Post) {
   const posts = getPostCollection(client);

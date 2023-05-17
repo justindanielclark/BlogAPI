@@ -9,7 +9,7 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const databaseClient = req.app.get("db") as MongoClient;
     const results = await _mongo.posts.retrieveAllPosts(databaseClient);
-    return res.json(results);
+    return res.send(JSON.stringify(results));
   } catch (err) {
     return res.sendStatus(500);
   }
@@ -21,7 +21,7 @@ router.get("/:postID", async (req: Request, res: Response, next: NextFunction) =
     if (result === null) {
       return res.sendStatus(404);
     }
-    return res.json(result);
+    return res.send(JSON.stringify(result));
   } catch (err) {
     //Catch if PostID is not valid configuration for request
     if (err instanceof BSONError) {
@@ -31,9 +31,13 @@ router.get("/:postID", async (req: Request, res: Response, next: NextFunction) =
   }
 });
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
-  // const databaseClient = req.app.get("db") as MongoClient;
-  // return res.sendStatus(500);
-  return res.json({ requestBody: req.body });
+  try {
+    console.log("Received a request to post...");
+    console.log(req.body);
+    return res.send(JSON.stringify({ requestBody: req.body }));
+  } catch (err) {
+    return res.sendStatus(500);
+  }
 });
 
 //TODO

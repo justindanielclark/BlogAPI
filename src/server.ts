@@ -1,17 +1,16 @@
 import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
-import httpErrors from "http-errors";
 import logErrors from "./middleware/logErrors";
 import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import cors from "cors";
 //Routes
 import posts from "./routes/posts";
 import categories from "./routes/categories";
 import _mongo from "./database/_mongo";
-import setHeadersAndStatusOK from "./middleware/setHeadersAndStatusOK";
 
 dotenv.config();
 
-// process.env.NODE_ENV = "production";
 async function main() {
   const app = express();
   const port = process.env.PORT || 3000;
@@ -19,20 +18,18 @@ async function main() {
   app.set("db", client);
   //MIDDLEWARE
   app.use(express.static(__dirname + "/../public"));
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.json());
+  app.use(cors());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
   app.use(cookieParser());
-  //! NOTE: Currently allows CORS, to address later
-  app.use(setHeadersAndStatusOK);
   //ROUTES
   app.use("/posts", posts);
   app.use("/categories", categories);
-
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    next(httpErrors(404));
+  //404
+  app.use("*", (req: Request, res: Response, next: NextFunction) => {
+    res.sendStatus(404);
   });
-
-  //Error Handling Middleware (must be last)
+  //ERROR HANDLING
   app.use(logErrors);
 
   app.listen(port, () => {
