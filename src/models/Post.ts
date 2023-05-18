@@ -11,4 +11,5 @@ type JSON_Post = {
   content: string;
 };
 
+export { Post, JSON_Post };
 export default Post;
