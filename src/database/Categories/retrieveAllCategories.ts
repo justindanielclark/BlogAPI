@@ -1,4 +1,4 @@
-import { MongoClient, WithId } from "mongodb";
+import { MongoClient } from "mongodb";
 import getCategoriesCollection from "./getCategoriesCollection";
 
 export default async function retrieveAllCategories(client: MongoClient) {

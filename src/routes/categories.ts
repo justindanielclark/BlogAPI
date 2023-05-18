@@ -1,10 +1,10 @@
-import express, { Response, Request, NextFunction } from "express";
+import express, { Response, Request } from "express";
 import { MongoClient } from "mongodb";
 import _mongo from "../database/_mongo";
 
 const router = express.Router();
 
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
     const databaseClient = req.app.get("db") as MongoClient;
     const results = await _mongo.categories.retrieveAllCategories(databaseClient);

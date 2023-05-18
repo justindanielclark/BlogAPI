@@ -1,7 +1,7 @@
 import { appendFile } from "fs";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 
-export default async function logErrors(err: Error, req: Request, res: Response, next: NextFunction) {
+export default async function logErrors(err: Error, req: Request, res: Response) {
   if (err.name !== "NotFoundError") {
     const date = new Date();
     const errorLog = `

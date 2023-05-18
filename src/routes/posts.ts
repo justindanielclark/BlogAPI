@@ -3,7 +3,6 @@ import { BSONError, ObjectId } from "bson";
 import { MongoClient, WithId } from "mongodb";
 import _mongo from "../database/_mongo";
 import { Post, JSON_Post } from "../models/Post";
-import { match } from "assert";
 import removeUnnecessaryWhiteSpace from "../utils/removeUnnecessaryWhitespace";
 
 const router = express.Router();
@@ -11,7 +10,7 @@ const router = express.Router();
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const databaseClient = req.app.get("db") as MongoClient;
-    const newPost = {
+    const newPost: Post = {
       ...req.body,
       post_date: new Date(),
     };
