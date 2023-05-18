@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from "mongodb";
 import Post from "../../models/Post";
-import getPostCollection from "./getPostCollection";
+import getPostCollection from "../Posts/getPostCollection";
 
 export default async function deletePost(client: MongoClient, postId: string) {
   const posts = getPostCollection(client);

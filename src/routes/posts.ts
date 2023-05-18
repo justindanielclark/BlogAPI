@@ -17,7 +17,7 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
 router.get("/:postID", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const databaseClient = req.app.get("db") as MongoClient;
-    const result = await _mongo.posts.retrievePost(databaseClient, req.params.postID);
+    const result = await _mongo.post.retrievePost(databaseClient, req.params.postID);
     if (result === null) {
       return res.sendStatus(404);
     }
@@ -32,9 +32,17 @@ router.get("/:postID", async (req: Request, res: Response, next: NextFunction) =
 });
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log("Received a request to post...");
-    console.log(req.body);
-    return res.send(JSON.stringify({ requestBody: req.body }));
+    const databaseClient = req.app.get("db") as MongoClient;
+    const newPost = {
+      ...req.body,
+      post_date: new Date(),
+    };
+    const writeResult = await _mongo.post.createPost(databaseClient, newPost);
+    if (writeResult.acknowledged) {
+      return res.sendStatus(200);
+    } else {
+      return res.sendStatus(500);
+    }
   } catch (err) {
     return res.sendStatus(500);
   }
