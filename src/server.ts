@@ -1,13 +1,14 @@
 import dotenv from "dotenv";
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response } from "express";
 import logErrors from "./middleware/logErrors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import cors from "cors";
+import _mongo from "./database/_mongo";
 //Routes
 import posts from "./routes/posts";
 import categories from "./routes/categories";
-import _mongo from "./database/_mongo";
+import images from "./routes/images";
 
 dotenv.config();
 
@@ -25,8 +26,9 @@ async function main() {
   //ROUTES
   app.use("/posts", posts);
   app.use("/categories", categories);
+  app.use("/images", images);
   //404
-  app.use("*", (req: Request, res: Response, next: NextFunction) => {
+  app.use("*", (req: Request, res: Response) => {
     res.sendStatus(404);
   });
   //ERROR HANDLING
